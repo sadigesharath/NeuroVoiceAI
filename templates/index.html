@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroVoice AI - Parkinson's Disease Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="description" content="AI-powered Parkinson's Disease detection from voice analysis">
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+    </div>
+
+    <div class="language-selector">
+        <select id="languageSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">🧠</div>
+                <h1 class="title" data-en="NeuroVoice AI" data-hi="न्यूरोवॉइस एआई">NeuroVoice AI</h1>
+            </div>
+            <p class="subtitle" data-en="Advanced Parkinson's Disease Detection from Voice Analysis" 
+               data-hi="आवाज़ विश्लेषण से उन्नत पार्किंसंस रोग का पता लगाना">
+                Advanced Parkinson's Disease Detection from Voice Analysis
+            </p>
+        </header>
+
+        <div class="privacy-notice" id="privacyNotice">
+            <div class="privacy-content">
+                <h3 data-en="Privacy & Consent" data-hi="गोपनीयता और सहमति">Privacy & Consent</h3>
+                <p data-en="Your voice data is processed locally and securely. We do not store your recordings permanently. By proceeding, you consent to voice analysis for Parkinson's detection." 
+                   data-hi="आपकी आवाज़ का डेटा स्थानीय रूप से और सुरक्षित रूप से प्रोसेस किया जाता है। हम आपकी रिकॉर्डिंग स्थायी रूप से संग्रहीत नहीं करते हैं।">
+                    Your voice data is processed locally and securely. We do not store your recordings permanently. 
+                    By proceeding, you consent to voice analysis for Parkinson's detection.
+                </p>
+                <button class="btn btn-primary" onclick="acceptPrivacy()" data-en="I Understand & Accept" data-hi="मैं समझता हूँ और स्वीकार करता हूँ">
+                    I Understand & Accept
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content" id="mainContent" style="display: none;">
+            <div class="card form-card">
+                <h2 class="card-title" data-en="Patient Information" data-hi="रोगी की जानकारी">Patient Information</h2>
+                <form id="patientForm">
+                    <div class="form-group">
+                        <label for="name" data-en="Full Name" data-hi="पूरा नाम">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age" data-en="Age" data-hi="उम्र">Age</label>
+                            <input type="number" id="age" name="age" min="1" max="120" required placeholder="Age">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" data-en="Gender" data-hi="लिंग">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" data-en="Select" data-hi="चुनें">Select</option>
+                                <option value="Male" data-en="Male" data-hi="पुरुष">Male</option>
+                                <option value="Female" data-en="Female" data-hi="महिला">Female</option>
+                                <option value="Other" data-en="Other" data-hi="अन्य">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card test-card">
+                <h2 class="card-title" data-en="Voice Test Instructions" data-hi="आवाज परीक्षण निर्देश">Voice Test Instructions</h2>
+                <div class="pangram-box">
+                    <p class="pangram-label" data-en="Please read this sentence clearly:" data-hi="कृपया इस वाक्य को स्पष्ट रूप से पढ़ें:">
+                        Please read this sentence clearly:
+                    </p>
+                    <p class="pangram-text" id="pangramText" data-en='"The quick brown fox jumps over the lazy dog"' data-hi='"एक चतुर भूरी लोमड़ी आलसी कुत्ते के ऊपर कूद गई"'>
+                        "The quick brown fox jumps over the lazy dog"
+                    </p>
+                    <ul class="instructions">
+                        <li data-en="Speak at your normal volume and pace" data-hi="अपनी सामान्य आवाज़ और गति से बोलें">Speak at your normal volume and pace</li>
+                        <li data-en="Record for at least 3-5 seconds" data-hi="कम से कम 3-5 सेकंड के लिए रिकॉर्ड करें">Record for at least 3-5 seconds</li>
+                        <li data-en="Ensure minimal background noise" data-hi="न्यूनतम पृष्ठभूमि शोर सुनिश्चित करें">Ensure minimal background noise</li>
+                    </ul>
+                </div>
+
+                <div class="test-options">
+                    <div class="option-btn" onclick="showRecordingInterface()">
+                        <span class="icon">🎤</span>
+                        <h3 data-en="Record Voice" data-hi="आवाज रिकॉर्ड करें">Record Voice</h3>
+                        <p data-en="Use your microphone" data-hi="अपने माइक्रोफ़ोन का उपयोग करें">Use your microphone</p>
+                    </div>
+                    <div class="option-btn" onclick="showUploadInterface()">
+                        <span class="icon">📁</span>
+                        <h3 data-en="Upload Audio" data-hi="ऑडियो अपलोड करें">Upload Audio</h3>
+                        <p data-en="Upload a .wav file" data-hi=".wav फ़ाइल अपलोड करें">Upload a .wav file</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card recording-card" id="recordingCard" style="display: none;">
+                <h2 class="card-title" data-en="Recording Interface" data-hi="रिकॉर्डिंग इंटरफ़ेस">Recording Interface</h2>
+                <div class="recording-controls">
+                    <button class="btn btn-record" id="recordBtn" onclick="toggleRecording()">
+                        <span class="record-icon">●</span>
+                        <span data-en="Start Recording" data-hi="रिकॉर्डिंग शुरू करें">Start Recording</span>
+                    </button>
+                    <div class="timer" id="timer">00:00</div>
+                </div>
+                <div class="waveform" id="waveform">
+                    <canvas id="visualizer" width="600" height="100"></canvas>
+                </div>
+                <audio id="audioPlayback" controls style="display: none; width: 100%; margin-top: 20px;"></audio>
+                <button class="btn btn-primary" id="analyzeRecordingBtn" onclick="analyzeRecording()" style="display: none;" data-en="Analyze Recording" data-hi="रिकॉर्डिंग का विश्लेषण करें">
+                    Analyze Recording
+                </button>
+            </div>
+
+            <div class="card upload-card" id="uploadCard" style="display: none;">
+                <h2 class="card-title" data-en="Upload Audio File" data-hi="ऑडियो फ़ाइल अपलोड करें">Upload Audio File</h2>
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="fileInput" accept=".wav,.mp3,.ogg,.flac" style="display: none;" onchange="handleFileSelect(event)">
+                    <div class="upload-prompt" onclick="document.getElementById('fileInput').click()">
+                        <span class="upload-icon">📤</span>
+                        <p data-en="Click to select or drag & drop audio file" data-hi="ऑडियो फ़ाइल चुनने के लिए क्लिक करें">Click to select or drag & drop audio file</p>
+                        <small data-en="Supported formats: WAV, MP3, OGG, FLAC" data-hi="समर्थित प्रारूप: WAV, MP3, OGG, FLAC">Supported formats: WAV, MP3, OGG, FLAC</small>
+                    </div>
+                </div>
+                <div id="selectedFile" style="display: none;">
+                    <p data-en="Selected file:" data-hi="चयनित फ़ाइल:">Selected file: <span id="fileName"></span></p>
+                    <button class="btn btn-primary" onclick="analyzeUploadedFile()" data-en="Analyze Audio" data-hi="ऑडियो का विश्लेषण करें">Analyze Audio</button>
+                </div>
+            </div>
+
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <h3 data-en="Analyzing Voice Sample..." data-hi="आवाज के नमूने का विश्लेषण कर रहे हैं...">Analyzing Voice Sample...</h3>
+                    <p data-en="Extracting acoustic features and running AI analysis" data-hi="ध्वनिक विशेषताओं को निकालना और AI विश्लेषण चलाना">Extracting acoustic features and running AI analysis</p>
+                </div>
+            </div>
+
+            <div class="card results-card" id="resultsCard" style="display: none;">
+                <h2 class="card-title" data-en="Analysis Results" data-hi="विश्लेषण परिणाम">Analysis Results</h2>
+                
+                <div class="result-summary" id="resultSummary">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <h3 class="result-text" id="resultText"></h3>
+                    <div class="confidence-bar">
+                        <div class="confidence-label" data-en="Confidence Level:" data-hi="आत्मविश्वास स्तर:">Confidence Level:</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="confidenceFill"></div>
+                        </div>
+                        <div class="confidence-value" id="confidenceValue"></div>
+                    </div>
+                </div>
+
+                <div class="features-analysis">
+                    <h3 data-en="Voice Features Analysis (Explainable AI)" data-hi="आवाज विशेषताएं विश्लेषण">Voice Features Analysis (Explainable AI)</h3>
+                    <p class="features-intro" data-en="Key voice biomarkers that influenced this prediction:" data-hi="मुख्य आवाज बायोमार्कर जिन्होंने इस भविष्यवाणी को प्रभावित किया:">
+                        Key voice biomarkers that influenced this prediction:
+                    </p>
+                    <div id="featuresList"></div>
+                </div>
+
+                <div class="recommendations" id="recommendations">
+                    <h3 data-en="Clinical Recommendations" data-hi="नैदानिक सिफारिशें">Clinical Recommendations</h3>
+                    <div id="recommendationText"></div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-success" id="downloadBtn" onclick="downloadReport()">
+                        <span>📄</span>
+                        <span data-en="Download PDF Report" data-hi="पीडीएफ रिपोर्ट डाउनलोड करें">Download PDF Report</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetTest()" data-en="Test Again" data-hi="फिर से परीक्षण करें">Test Again</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p data-en="⚕️ Medical Disclaimer: This tool is for informational purposes only and should not replace professional medical advice. Consult a neurologist for proper diagnosis." 
+               data-hi="⚕️ चिकित्सा अस्वीकरण: यह उपकरण केवल सूचनात्मक उद्देश्यों के लिए है और पेशेवर चिकित्सा सलाह की जगह नहीं लेना चाहिए।">
+                ⚕️ Medical Disclaimer: This tool is for informational purposes only and should not replace professional medical advice. Consult a neurologist for proper diagnosis.
+            </p>
+            <p data-en="Built with ❤️ for accessible healthcare | Open Source | Privacy First" 
+               data-hi="सुलभ स्वास्थ्य देखभाल के लिए ❤️ के साथ बनाया गया">
+                Built with ❤️ for accessible healthcare | Open Source | Privacy First
+            </p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
