@@ -193,10 +193,4 @@ requirements.txt	All project dependencies
 
 ---
 
-👨‍💻 Developed By
-
-Project Title: NeuroVoice AI
-Developer: Sadige Sharath and Team
-Department: ECE, CMR Engineering College
-Hackathon: CSA Hackathon 2025–26
-Motto: “Saving lives through smart detection.”
+👨‍💻 Developed By S.SHARATH
