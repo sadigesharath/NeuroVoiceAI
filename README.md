@@ -45,7 +45,7 @@ To design and implement an *AI-powered voice analysis tool* that enables *early 
 1. *Run the app* locally using VS Code  
    ```bash
    python app.py
-   2. Open your browser and visit
+  2. Open your browser and visit
 👉 http://127.0.0.1:5000/
 
 
@@ -83,6 +83,9 @@ Zero Crossing Rate
 
 
 
+
+---
+
 🧪 Example Output
 
 Prediction: Parkinson’s Detected  
@@ -96,6 +99,8 @@ Confidence: 93.4%
 Status: Normal
 
 
+---
+
 🧠 Model Information
 
 Parameter	Details
@@ -108,10 +113,13 @@ Output	Binary Classification (Healthy / Parkinson’s)
 
 
 
+---
+
 ⚖ Model Performance & Limitations
 
 > The model performs well on clean, consistent voice data but may sometimes misclassify due to microphone noise, accent variation, or recording environment.
 This is a known challenge in biomedical AI systems that rely on non-clinical voice datasets.
+
 
 
 Future Enhancements:
@@ -124,6 +132,9 @@ Add live noise filtering and voice normalization
 
 Expand to other neurological conditions (ALS, Dysarthria, etc.)
 
+
+
+---
 
 🏁 How to Run (in VS Code)
 
@@ -150,6 +161,10 @@ Go to: http://127.0.0.1:5000/
 5. Record or upload a voice sample → Wait for analysis → Download report.
 
 
+
+
+---
+
 📄 Files in Project
 
 File	Description
@@ -164,6 +179,9 @@ requirements.txt	All project dependencies
 /uploads/keep.txt	Placeholder to keep uploads folder active
 
 
+
+---
+
 🧭 Project Impact
 
 🧬 Enables early screening for neurological disorders using AI
@@ -173,10 +191,12 @@ requirements.txt	All project dependencies
 🎓 Supports AI-driven healthcare innovation
 
 
+---
+
 👨‍💻 Developed By
 
 Project Title: NeuroVoice AI
-Developer: Sadige Sharath
+Developer: Sadige Sharath and Team
 Department: ECE, CMR Engineering College
 Hackathon: CSA Hackathon 2025–26
 Motto: “Saving lives through smart detection.”
