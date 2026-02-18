@@ -339,7 +339,7 @@ async function performAnalysis(formData) {
     document.getElementById('loadingOverlay').style.display = 'flex';
 
     try {
-        const response = await fetch('http://localhost:5000/analyze', { // <-- FIXED LINE!
+        const response = await fetch("/analyze", {
             method: 'POST',
             body: formData
         });
