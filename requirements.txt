@@ -7,3 +7,5 @@ matplotlib
 fpdf
 gunicorn
 werkzeug
+librosa
+
