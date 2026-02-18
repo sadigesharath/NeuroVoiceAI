@@ -1,9 +1,9 @@
-Flask
-librosa
+flask
+flask-cors
 numpy
 pandas
 scikit-learn
-soundfile
+matplotlib
 fpdf
 gunicorn
 werkzeug
